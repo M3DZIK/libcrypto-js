@@ -1,6 +1,6 @@
 import crypto from "crypto"
 
-import { salt } from "."
+import * as salt from "./salt"
 
 /**
  * Encrypts the clear text using AES-256-CBC algorithm

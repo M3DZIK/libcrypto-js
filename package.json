@@ -2,7 +2,7 @@
   "name": "@medzik/libcrypto",
   "version": "0.1.0",
   "description": "A library for cryptography in JavaScript",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "jest"
   },
