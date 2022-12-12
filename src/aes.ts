@@ -17,11 +17,12 @@ export function encryptAesCbc(secretKey: string, clearText: string): string {
     // create a cipher using the secret key and the initialization vector
     const cipher = crypto.createCipheriv('aes-256-cbc', key, iv)
     // update the cipher with the clear text
-    let cipherText = cipher.update(clearText, 'utf8', 'hex');
-    // add the initialization vector to the cipher text
-    cipherText += Buffer.from(iv).toString('hex')
+    let cipherText = cipher.update(clearText, 'utf8', 'hex')
     // finalize the cipher
     cipherText += cipher.final('hex')
+
+    // add the initialization vector to the cipher text
+    cipherText = Buffer.from(iv).toString('hex') + cipherText
 
     return cipherText
 }
@@ -43,9 +44,9 @@ export function decryptAesCbc(secretKey: string, cipherText: string): string {
     // create decipher using the secret key and the initialization vector
     const cipher = crypto.createDecipheriv('aes-256-cbc', key, iv)
     // update decipher with the cipher text
-    let clearText = cipher.update(cipherText, 'hex', 'hex');
+    let clearText = cipher.update(cipherText, 'hex', 'utf8');
     // finalize decipher
-    clearText += cipher.final('hex')
+    clearText += cipher.final()
 
-    return Buffer.from(clearText, 'hex').toString()
+    return clearText
 }
