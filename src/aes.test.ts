@@ -10,7 +10,7 @@ describe("AES", () => {
 
         const decryptedText = aes.decryptAesCbc(secretKey, cipherText)
 
-        expect(clearText).toBe(decryptedText)
+        expect(decryptedText).toBe(clearText)
     })
 
     test("Decrypt", () => {

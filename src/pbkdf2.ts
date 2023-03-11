@@ -1,4 +1,4 @@
-import { BinaryLike, pbkdf2Sync } from "crypto";
+import { BinaryLike, pbkdf2Sync } from "crypto-browserify";
 
 /**
  * Hashes a password using PBKDF2-SHA256.
