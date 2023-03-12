@@ -1,7 +1,7 @@
 import { Buffer } from "buffer/"
-import crypto from "crypto-browserify"
 
-import * as salt from "./salt"
+import { createCipheriv, createDecipheriv } from "./crypto"
+import { generate as salt } from "./salt"
 
 /**
  * Encrypts the clear text using AES-256-CBC algorithm
@@ -13,10 +13,10 @@ export function encryptAesCbc(secretKey: string, clearText: string): string {
     // decode the secret key from a hex string to a buffer
     const key = Buffer.from(secretKey, 'hex')
     // generate a random initialization vector
-    const iv = salt.generate(16)
+    const iv = salt(16)
 
     // create a cipher using the secret key and the initialization vector
-    const cipher = crypto.createCipheriv('aes-256-cbc', key, iv)
+    const cipher = createCipheriv('aes-256-cbc', key, iv)
     // update the cipher with the clear text
     let cipherText = cipher.update(clearText, 'utf8', 'hex')
     // finalize the cipher
@@ -43,7 +43,7 @@ export function decryptAesCbc(secretKey: string, cipherText: string): string {
     cipherText = cipherText.substring(32)
 
     // create decipher using the secret key and the initialization vector
-    const cipher = crypto.createDecipheriv('aes-256-cbc', key, iv)
+    const cipher = createDecipheriv('aes-256-cbc', key, iv)
     // update decipher with the cipher text
     let clearText = cipher.update(cipherText, 'hex', 'utf8');
     // finalize decipher

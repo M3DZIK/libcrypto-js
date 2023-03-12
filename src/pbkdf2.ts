@@ -1,4 +1,4 @@
-import { BinaryLike, pbkdf2Sync } from "crypto-browserify";
+import { pbkdf2Sync } from "./crypto";
 
 /**
  * Hashes a password using PBKDF2-SHA256.
@@ -7,7 +7,7 @@ import { BinaryLike, pbkdf2Sync } from "crypto-browserify";
  * @param iterations Number of hashing iterations.
  * @returns Hash of the password.
  */
-export function hash256(password: string, salt: BinaryLike, iterations: number): string {
+export function hash256(password: string, salt: any, iterations: number): string {
   return pbkdf2Sync(password, salt, iterations, 32, "sha256").toString("hex");
 }
 
@@ -18,7 +18,7 @@ export function hash256(password: string, salt: BinaryLike, iterations: number):
  * @param iterations Number of hashing iterations.
  * @returns Hash of the password.
  */
-export function hash512(password: string, salt: BinaryLike, iterations: number): string {
+export function hash512(password: string, salt: any, iterations: number): string {
   return pbkdf2Sync(password, salt, iterations, 64, "sha512").toString("hex");
 }
 
@@ -30,7 +30,7 @@ export function hash512(password: string, salt: BinaryLike, iterations: number):
  * @param iterations Number of hashing iterations.
  * @returns If the password matches the hash.
  */
-export function match256(hash: string, password: string, salt: BinaryLike, iterations: number): boolean {
+export function match256(hash: string, password: string, salt: any, iterations: number): boolean {
   return hash256(password, salt, iterations) === hash;
 }
 
@@ -42,6 +42,6 @@ export function match256(hash: string, password: string, salt: BinaryLike, itera
  * @param iterations Number of hashing iterations.
  * @returns If the password matches the hash.
  */
-export function match512(hash: string, password: string, salt: BinaryLike, iterations: number): boolean {
+export function match512(hash: string, password: string, salt: any, iterations: number): boolean {
   return hash512(password, salt, iterations) === hash;
 }
