@@ -1,4 +1,4 @@
-import { Buffer } from "buffer"
+import { Buffer } from "buffer/"
 
 export function generate(length: number): Buffer {
     const salt: number[] = []
