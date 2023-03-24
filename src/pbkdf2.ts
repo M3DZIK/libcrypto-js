@@ -1,4 +1,4 @@
-import { pbkdf2Sync } from "./crypto";
+import { pbkdf2 } from "./crypto";
 
 /**
  * Hashes a password using PBKDF2-SHA256.
@@ -7,8 +7,16 @@ import { pbkdf2Sync } from "./crypto";
  * @param iterations Number of hashing iterations.
  * @returns Hash of the password.
  */
-export function hash256(password: string, salt: any, iterations: number): string {
-  return pbkdf2Sync(password, salt, iterations, 32, "sha256").toString("hex");
+export async function hash256(password: string, salt: any, iterations: number): Promise<string> {
+  return new Promise((resolve, reject) => {
+    pbkdf2(password, salt, iterations, 32, "sha256", (err, key) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(key.toString("hex"));
+      }
+    });
+  });
 }
 
 /**
@@ -18,8 +26,16 @@ export function hash256(password: string, salt: any, iterations: number): string
  * @param iterations Number of hashing iterations.
  * @returns Hash of the password.
  */
-export function hash512(password: string, salt: any, iterations: number): string {
-  return pbkdf2Sync(password, salt, iterations, 64, "sha512").toString("hex");
+export async function hash512(password: string, salt: any, iterations: number): Promise<string> {
+  return new Promise((resolve, reject) => {
+    pbkdf2(password, salt, iterations, 64, "sha512", (err, key) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(key.toString("hex"));
+      }
+    });
+  });
 }
 
 /**
@@ -30,8 +46,8 @@ export function hash512(password: string, salt: any, iterations: number): string
  * @param iterations Number of hashing iterations.
  * @returns If the password matches the hash.
  */
-export function match256(hash: string, password: string, salt: any, iterations: number): boolean {
-  return hash256(password, salt, iterations) === hash;
+export async function match256(hash: string, password: string, salt: any, iterations: number): Promise<boolean> {
+  return (await hash256(password, salt, iterations)) === hash;
 }
 
 /**
@@ -42,6 +58,6 @@ export function match256(hash: string, password: string, salt: any, iterations: 
  * @param iterations Number of hashing iterations.
  * @returns If the password matches the hash.
  */
-export function match512(hash: string, password: string, salt: any, iterations: number): boolean {
-  return hash512(password, salt, iterations) === hash;
+export async function match512(hash: string, password: string, salt: any, iterations: number): Promise<boolean> {
+  return (await hash512(password, salt, iterations)) === hash;
 }
