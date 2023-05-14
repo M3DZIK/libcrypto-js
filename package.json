@@ -11,9 +11,12 @@
   "author": "MedzikUser <medzik@duck.com>",
   "license": "GPL-3.0",
   "dependencies": {
+    "browser-keygen": "^1.0.5",
     "browserify-cipher": "^1.0.1",
+    "browserify-rsa": "^4.1.0",
     "buffer": "^6.0.3",
-    "pbkdf2": "^3.1.2"
+    "pbkdf2": "^3.1.2",
+    "public-encrypt": "^4.0.3"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
