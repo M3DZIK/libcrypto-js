@@ -27,9 +27,4 @@ jobs:
         run: npm install
 
       - name: Unit Tests
-        run: |
-          if [ "${{ matrix.node-version }}" = "18.x" ]; then
-            NODE_OPTIONS='--no-experimental-fetch' npm test
-          else
-            npm test
-          fi
+        run: npm test

@@ -11,16 +11,14 @@
   "author": "M3DZIK <me@medzik.dev>",
   "license": "MIT",
   "dependencies": {
-    "argon2-browser": "^1.18.0",
     "browser-keygen": "^1.0.5",
     "browserify-cipher": "^1.0.1",
-    "browserify-rsa": "^4.1.0",
     "buffer": "^6.0.3",
+    "hash-wasm": "^4.9.0",
     "pbkdf2": "^3.1.2",
     "public-encrypt": "^4.0.3"
   },
   "devDependencies": {
-    "@types/crypto-js": "^4.1.1",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
     "@types/pbkdf2": "^3.1.0",
