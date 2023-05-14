@@ -11,6 +11,7 @@
   "author": "MedzikUser <medzik@duck.com>",
   "license": "GPL-3.0",
   "dependencies": {
+    "argon2-browser": "^1.18.0",
     "browser-keygen": "^1.0.5",
     "browserify-cipher": "^1.0.1",
     "browserify-rsa": "^4.1.0",
