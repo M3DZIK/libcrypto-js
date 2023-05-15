@@ -7,22 +7,26 @@ import { publicEncrypt, privateDecrypt } from "public-encrypt";
  * @returns RSA key pair (public key and private key)
  */
 export async function generateKeyPair(bitLength: number): Promise<{ publicKey: string, privateKey: string }> {
-    const keyPair = await keygen.generateKeyPairSync('rsa', {
-        modulusLength: bitLength,
-        publicKeyEncoding: {
-            type: 'spki',
-            format: 'pem'
-        },
-        privateKeyEncoding: {
-            type: 'pkcs1',
-            format: 'pem'
-        }
-    })
+    return new Promise((resolve, reject) => {
+        keygen.generateKeyPair('rsa', {
+            modulusLength: bitLength,
+            publicKeyEncoding: {
+                type: 'spki',
+                format: 'pem'
+            },
+            privateKeyEncoding: {
+                type: 'pkcs1',
+                format: 'pem'
+            }
+        }, (err, publicKey, privateKey) => {
+            if (err) reject(err)
 
-    return {
-        publicKey: keyPair.publicKey,
-        privateKey: keyPair.privateKey
-    }
+            resolve({
+                publicKey: publicKey,
+                privateKey: privateKey
+            })
+        })
+    });
 }
 
 /**
