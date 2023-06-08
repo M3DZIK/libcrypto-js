@@ -14,6 +14,7 @@
     "browser-keygen": "^1.0.5",
     "browserify-cipher": "^1.0.1",
     "buffer": "^6.0.3",
+    "curve25519-js": "^0.0.4",
     "hash-wasm": "^4.9.0",
     "pbkdf2": "^3.1.2",
     "public-encrypt": "^4.0.3"
