@@ -9,42 +9,34 @@ describe("Curve25519", () => {
         expect(keyPair.publicKey).toHaveLength(64)
     })
 
-    test("Calculate Agreement", async () => {
+    test("Calculate Shared Secret", async () => {
         const our = curve25519.generateKeyPair();
         const their = curve25519.generateKeyPair();
 
-        const sharedSecret = curve25519.calculateAgreement(our.privateKey, their.publicKey);
+        const sharedSecret = curve25519.computeSharedSecret(our.privateKey, their.publicKey);
 
         expect(sharedSecret).toHaveLength(64)
     })
 
-    test("Calculate Agreement Encrypt", async () => {
+    test("Calculate Shared Secret Encrypt", async () => {
         const keyPair = curve25519.generateKeyPair();
 
-        const sharedSecret = curve25519.calculateAgreement(keyPair.privateKey, keyPair.publicKey);
+        const sharedSecret = curve25519.computeSharedSecret(keyPair.privateKey, keyPair.publicKey);
 
         const cipherText = encryptAesGcm(sharedSecret, "hello world");
 
-        const sharedSecret2 = curve25519.calculateAgreement(keyPair.privateKey, keyPair.publicKey);
+        const sharedSecret2 = curve25519.computeSharedSecret(keyPair.privateKey, keyPair.publicKey);
 
         const plainText = decryptAesGcm(sharedSecret2, cipherText);
 
         expect(plainText).toBe("hello world")
     })
 
-    test("Calculate Signature", async () => {
+    test("Recover Public Key", async () => {
         const keyPair = curve25519.generateKeyPair();
 
-        const signature = curve25519.calculateSignature(keyPair.privateKey, "hello world");
+        const publicKey = curve25519.recoverPublicKey(keyPair.privateKey);
 
-        expect(signature).toHaveLength(128)
-    })
-
-    test("Verify Signature", async () => {
-        const keyPair = curve25519.generateKeyPair();
-
-        const signature = curve25519.calculateSignature(keyPair.privateKey, "hello world");
-
-        expect(curve25519.verifySignature(keyPair.publicKey, "hello world", signature)).toBeTruthy()
+        expect(publicKey).toBe(keyPair.publicKey)
     })
 })
